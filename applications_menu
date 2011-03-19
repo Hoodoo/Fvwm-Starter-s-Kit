@@ -1,0 +1,86 @@
+
+DestroyMenu "Applications"
+AddToMenu "Applications"
++ "Accessories%menu/folder.png%" Popup "Accessories"
++ "Games%menu/folder.png%" Popup "Games"
++ "Graphics%menu/folder.png%" Popup "Graphics"
++ "Internet%menu/folder.png%" Popup "Internet"
++ "Office%menu/folder.png%" Popup "Office"
++ "Other%menu/folder.png%" Popup "Other"
++ "Programming%menu/folder.png%" Popup "Development"
++ "Sound & Video%menu/folder.png%" Popup "Multimedia"
++ "System Tools%menu/folder.png%" Popup "System"
+
+DestroyMenu "Accessories"
+AddToMenu "Accessories"
++ "Character Map%menu/accessories-character-map.png%" Exec exec gucharmap
++ "File Manager%menu/system-file-manager.png%" Exec exec exo-open --launch FileManager 
++ "gedit%menu/accessories-text-editor.png%" Exec exec gedit 
++ "GShutdown%menu/gshutdown.png%" Exec exec /usr/bin/gshutdown
++ "PDF Editor%menu/pdfedit.png%" Exec exec pdfedit
++ "Terminal Emulator%menu/utilities-terminal.png%" Exec exec exo-open --launch TerminalEmulator
++ "Xarchiver%menu/xarchiver.png%" Exec exec xarchiver
+
+DestroyMenu "Games"
+AddToMenu "Games"
++ "Tux Paint%menu/tuxpaint.png%" Exec exec tuxpaint
+
+DestroyMenu "Graphics"
+AddToMenu "Graphics"
++ "CinePaint%menu/cinepaint.png%" Exec exec cinepaint-remote 
++ "DjView4%menu/djvulibre-djview4.png%" Exec exec djview4 
++ "GNU Image Manipulation Program%menu/gimp.png%" Exec exec gimp-2.7 
++ "MagIcons%menu/MagIcons.png%" Exec exec MagIcons
++ "Tux Paint%menu/tuxpaint.png%" Exec exec tuxpaint
++ "Viewnior%menu/viewnior.png%" Exec exec viewnior 
++ "XPaint%menu/XPaintIcon.png%" Exec exec xpaint
+
+DestroyMenu "Internet"
+AddToMenu "Internet"
++ "Avahi SSH Server Browser%menu/network-wired.png%" Exec exec /usr/bin/bssh
++ "Avahi VNC Server Browser%menu/network-wired.png%" Exec exec /usr/bin/bvnc
++ "Claws Mail%menu/claws-mail.png%" Exec exec claws-mail
++ "Deluge BitTorrent Client%menu/deluge.png%" Exec exec deluge-gtk
++ "Elinks%menu/.png%" Exec exec elinks 
++ "Firefox%menu/firefox.png%" Exec exec firefox 
++ "Firefox - Safe Mode%menu/firefox.png%" Exec exec firefox -safe-mode 
++ "Links%menu/links_32x32.png%" Exec exec xlinks -g
++ "Mail Reader%menu/internet-mail.png%" Exec exec exo-open --launch MailReader 
++ "Web Browser%menu/web-browser.png%" Exec exec exo-open --launch WebBrowser 
++ "Wicd%menu/wicd-gtk.png%" Exec exec /usr/bin/wicd-client
++ "XChat IRC%menu/xchat.png%" Exec exec xchat
+
+DestroyMenu "Office"
+AddToMenu "Office"
++ "AbiWord%menu/abiword_48.png%" Exec exec abiword
++ "ePDFViewer%menu/epdfview.png%" Exec exec epdfview 
++ "Gnumeric%menu/gnumeric.png%" Exec exec gnumeric 
+
+DestroyMenu "Other"
+AddToMenu "Other"
++ "urxvt%menu/.png%" Exec exec urxvt -e vim
+
+DestroyMenu "Development"
+AddToMenu "Development"
++ "Devhelp%menu/devhelp.png%" Exec exec devhelp
++ "Geany%menu/geany.png%" Exec exec geany 
++ "Glade Interface Designer%menu/glade-3.png%" Exec exec glade-3 
++ "Qt Assistant%menu/assistant.png%" Exec exec /usr/bin/assistant
++ "Qt Designer%menu/designer.png%" Exec exec /usr/bin/designer
++ "Qt Linguist%menu/linguist.png%" Exec exec /usr/bin/linguist
+
+DestroyMenu "Multimedia"
+AddToMenu "Multimedia"
++ "Sonata%menu/sonata.png%" Exec exec sonata
++ "VLC media player%menu/vlc.png%" Exec exec vlc 
++ "Xfburn%menu/media-cdrom.png%" Exec exec xfburn
+
+DestroyMenu "System"
+AddToMenu "System"
++ "Avahi Zeroconf Browser%menu/network-wired.png%" Exec exec /usr/bin/avahi-discover
++ "Bulk Rename%menu/Thunar.png%" Exec exec /usr/lib/Thunar/ThunarBulkRename 
++ "Cairo Composite Manager%menu/cairo-compmgr.png%" Exec exec cairo-compmgr
++ "Disk Utility%menu/palimpsest.png%" Exec exec palimpsest
++ "GParted%menu/gparted.png%" Exec exec gksu /usr/sbin/gparted 
++ "rxvt-unicode%menu/rxvt-unicode.png%" Exec exec urxvt
++ "Thunar File Manager%menu/Thunar.png%" Exec exec Thunar 

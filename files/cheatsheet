@@ -1,0 +1,56 @@
+use_spacer yes
+background no
+use_xft yes
+xftfont Monospace:pixelsize=11
+xftalpha 1
+update_interval 4.0
+own_window no
+double_buffer yes
+minimum_size 200
+draw_outline no
+draw_borders no
+stippled_borders 0
+border_margin 9
+gap_x 24
+gap_y 24
+no_buffers yes
+alignment top_right
+text_buffer_size 1080
+TEXT
+WINDOW MANAGEMENT
+${hr}
+Alt+F4 - Close
+Alt+F7 - Move
+Alt+F8 - Resize
+
+Super+m - Maximize
+Super+i - Iconify
+Super+r - 50% width, center
+Super+Shift+a - toggle autoshade
+Super+Shift+t - toggle always on top
+Super+Shift+d - undecorate
+Super+d - decorate
+Super+Shift+arrow - move titlebar
+Super+Shift+{1..3} - add window to group
+Super+{1..3} - switch windows/groups
+
+LAUNCH APPLICATIONS
+${hr}
+Launch app/go to window/switch app windows
+Super+t - terminal
+Super+f - file manager
+Super+e - text editor
+Super+w - web browser
+Super+p - music player
+
+Ctrl+Super+key to launch app whatsoever
+
+OTHER STUFF
+${hr}
+PrtScr - take screenshot
+Super+Space - main menu
+Ctrl+Grave - quake-terminal
+Alt+m - fvwm console
+Alt+F2 - run application
+
+

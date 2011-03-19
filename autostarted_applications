@@ -1,0 +1,64 @@
+#  Specify the applications you would
+#  like to start with fvwm.
+#  
+#  Typically they are panel, tray, system
+#  monitor, power manager, network manager,
+#  an application to display wallpaper, 
+#  clipboard manager, applications like 
+#  internet messengers and mail clients
+#  and whatever you want. 
+# 
+#  This configuration uses some fvwm modules,
+#  they are also started here:
+
+DestroyFunc StartFunction
+AddToFunc StartFunction
+
+#  FvwmCommandS is used to issue fvwm commands
+#  right out of your terminal or a script
+
++ I Module FvwmCommandS
+
+#  FvwmAnimate handles some simple animation
+
++ I Module FvwmAnimate
+
+#  FvwmButtons is a powerful tool for creating
+#  launchers, buttons, switches and such. 
+#  One can write a music player controls, a shutdown 
+#  button, a taskbar, a bunch of custom launchers, 
+#  a panel and more using FvwmButtons.
+
++ I Module FvwmButtons
+
+#  Try FvwmBacker to set different wallpapers
+#  for different pages and different desktops
+#  (see backer file for details)
+
++ I Module FvwmBacker
+
++ I Module FvwmPerl
+
+#  Now back to applications. Whenever you
+#  want an application to start automatically
+#  once you login, add it here.
+#
+#  Use Test (Init) before Exec exec to make sure 
+#  a new instance of an application is not launched
+#  every time you restart fvwm, 
+
+
+#  These who use more than one keyboard
+#  layouts can set up layouts switching
+#  here:
+#  For advanced switching options try fbxkb, 
+#  xneur etc.
+
++ I Test (Init) Exec exec setxkbmap -layout  "us,ru(winkeys)" -model "pc105" -option "grp:alt_shift_toggle,grp_led:scroll"
+
+#  Try nitrogen as your wallpaper manager
+
++ I Test (Init) Exec exec nitrogen --restore
+
+#  More about fvwm startup process:
+#  http://fvwmwiki.xteddy.org/Tips/FVWMStartupProcedure/  

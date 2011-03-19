@@ -1,0 +1,270 @@
+#  Once you wrote a function, you 
+#  can invoke it from anywhere in
+#  your fvwm config and bind it
+#  to hotkey or mouse or window
+#  decoration button.
+#  
+#  Binding functions to keys and
+#  buttons is described in keybindings_and_mouse
+#  file. Detailed explanation of
+#  functions syntax can be found in
+#  fvwm beginner's guide or in a
+#  manual.
+
+#  Toggle 'always on top'
+#  
+#  Here the TestRc command is used. 
+#  
+#  The first string checks if a window is in 
+#  layer 6, and if it is, issues Layer command
+#  with no options, which puts window to a 
+#  layer it was before it was sent to top.
+#  
+#  If it is not, reurn code NoMatch is returned,
+#  and the second line's condition is meet and
+#  a corresponding command is issued: window 
+#  is send to layer 0 6 - the top layer.
+#  
+#  For better understanding refer to manual 
+#  sections describing conditional commands,
+#  layers and return codes - it really worths it, 
+#  because you might find a way to implement a
+#  feature you always wanted. 
+
+DestroyFunc WinOnTop
+AddToFunc WinOnTop
++ I ThisWindow (Layer 6) Layer
++ I TestRc (NoMatch) Layer 0 6
+
+#  More details on "always on top" and
+#  fvwm layers concept:
+#  http://www.mail-archive.com/fvwm@fvwm.org/msg00268.html
+
+#  This one makes screenshot and
+#  actually depends on scrot:
+
+DestroyFunc FvwmDesktopScreenshot
+AddToFunc   FvwmDesktopScreenshot
++ I Exec exec scrot "screenshot-`date +%F[%T]`.png"
+
+#  I find this one useful for widescreen
+#  monitor when I deal with something
+#  I read - make window 60% of screen width
+#  and put it in the center of desktop.
+#
+#  Here you can see the usage of relative
+#  window movement - it's placed vertically
+#  and horisontally so that its top left 
+#  corner is at coordinates (50% of screen width
+#  - 50% of window width), (50% of screen height -
+#  50% of window height), which centers the window.
+
+DestroyFunc ReadableWidth
+AddToFunc ReadableWidth
++ I Maximize 60
++ I Move 50-50w 50-50w
+
+
+#  Autoshade functions set. It mimics
+#  Kwin autoshade feature: definite
+#  window unshades when cursor is 
+#  over the titlebar, stays unshaded
+#  while cursor is in the window and
+#  shades when it leaves.
+#  
+#  It also showcases fvwm State command,
+#  setting and checking window states
+#  and performing actions on windows 
+#  having this or that state along with
+#  FvwmAuto module which tracks if mouse
+#  pointer is in window.
+#  
+#  You can define up to 32 states (0-31)
+#  
+#  In this config State 0 is reserved for
+#  autoshade function
+
+DestroyFunc ToggleAutoshaded
+AddToFunc ToggleAutoshaded
++ I State 0
+
+DestroyFunc AutoShade
+AddToFunc AutoShade
++ I ThisWindow (State 0) WindowShade True
+
+DestroyFunc AutoUnshade
+AddToFunc AutoUnshade
++ I ThisWindow (State 0) WindowShade False
+
+#  This module call actually belongs to startup 
+#  function, but I left it here for readability
+
+Module FvwmAuto 0 -menter "Silent AutoUnshade" "Silent AutoShade"
+
+#  This is a "Smart Launcher": bind it to
+#  a hotkey and it would launch an application
+#  if it is not running, raise its window if it's
+#  running and switch between given applications 
+#  windows if you have two or more of them.
+#
+#  Call this function with parameters:
+#  LaunchRaiseSwitch *gedit* gedit
+#  LaunchRaiseSwitch *Namoroka firefox
+#
+#  The first parameter stands for window 
+#  name the function should react on 
+#  (see manuals section about keybindings
+#  for more detailed description of these
+#  conditions) and the second - for an 
+#  application to launch.
+#
+#  See chapter 29 of fvwm manual for explanation
+#  of command expansion for the list of 
+#  parameters you can give to functions.
+
+DestroyFunc LaunchRaiseSwitch
+AddToFunc LaunchRaiseSwitch
++ I None (*$0*) Exec exec $1
++ I Next (*$0*) Focus
++ I Next (*$0*) Iconify False
+
+Module FvwmAuto 0 -mfocus "Silent Raise" 
+
+#  A mixture of previous two examples would
+#  let you 'group' windows so that you can
+#  switch between them with a hotkey (seen
+#  in compiz)
+#
+#  Adding window to a  'group' by chanding
+#  it's state:
+
+DestroyFunc AddToGroup
+AddToFunc AddToGroup
+
++ I ThisWindow State $0
+
+#  This way one can set up several groups
+#  on seveal keybindings.
+#  
+#  And switching between groups amd inside them:
+
+DestroyFunc GroupSwitch
+AddToFunc GroupSwitch
++ I Next (State $0) Focus
+
+#  Bind these to hotkeys, mouse buttons, window
+#  title buttons or whatever you want, see
+#  the keybinding_and_mouse file for the example.
+
+#  This function is written to mimic tilda,
+#  yakuake and such. Parameters are your 
+#  terminal of choice, window name given 
+#  to them at start so that the function
+#  can tell quake-like window from the 
+#  others (refer to your terminal's manual 
+#  for the exact option), width, height, x 
+#  and y position of upper left corner.
+#
+#  Example:
+#  Key Q A 4 QLikeLaunch urxvt quake-term 812 360 275 0
+#
+#  Undecorate the window by adding something
+#  like this:
+#  Style "quake-term" !Title, !Handles, !Borders, !Icon, WindowListSkip
+
+
+DestroyFunc QLikeTerm
+AddToFunc QLikeTerm
++ I None ($1, CurrentDesk) Exec exec $0 -name $1
++ I All ($1) ResizeMove $2p $3p $4p $5p
++ I All ($1) Stick True
++ I All ($1, CurrentDesk) Iconify
+
+DestroyFunc QLikeLaunch
+AddToFunc QLikeLaunch
++ I None ($1, CurrentDesk) Exec exec $0
++ I All ($1) ResizeMove $1p $2p $3p $4p
++ I All ($1) Stick True
++ I All ($1, CurrentDesk) Iconify
+
+
+
+#  Having a fvwmconsole a hotkey away is
+#  a good idea for experimenting with 
+#  functions and fixing things if they 
+#  get messed up.
+#  
+#  Please note that it uses urxvt in this 
+#  config. If you don't have it installed,
+#  just remove '-terminal urxvt'
+
+DestroyFunc QLikeFvwmConsole
+AddToFunc QLikeFvwmConsole
++ I None (FvwmConsole, CurrentDesk) FvwmConsole -terminal urxvt
++ I All (FvwmConsole) ResizeMove $0p $1p $2p $3p
++ I All (FvwmConsole) Stick True
++ I All (FvwmConsole, CurrentDesk) Iconify
+
+#  Undecorate given window:
+
+DestroyFunc UnDecorate
+AddToFunc UnDecorate
++ I WindowStyle !Title, !Borders, !Handles
+
+#  And decorate it again:
+
+DestroyFunc Decorate
+AddToFunc Decorate
++ I WindowStyle Title, Borders, Handles
+
+#  This one is needed for the file browser
+#  menu to work, credit goes to rstrcogburn@crunchbangforums
+#  !!Important!!
+#  it depends on xdg-utils to work, 
+#  and xdg-utils, in its turn, 
+#  needs perl-file-mimeinfo to work
+#  properly.
+
+
+AddToFunc FuncFvwmMenuDirectory 
++ I PipeRead \
+"fvwm-menu-directory -d '$0' \
+-command-t 'Exec exec xdg-open "%d"' \
+-command-f 'Exec exec xdg-open "%f"'"
+
+#  Function for titlebar - "push", focus
+#  and window menu
+#
+#  Warning! I found fvwm's default behaviour
+#  for doubleclick on titlebar very handy.
+#  
+#  If you want your maximize on doubleclick - 
+#  change it here.
+
+DestroyFunc TitleFunction
+AddToFunc TitleFunction
++ C Focus
++ D Lower
++ M Move
+
+#  Coupe of functions I find useful
+
+#  Undecorate window and maximize it
+#  Note the usage of Schedule command 
+#  to make fvwm perform actions in given 
+#  order.
+
+DestroyFunc UndecMax
+AddToFunc UndecMax 
++ I ThisWindow UnDecorate
++ I Schedule 100 Maximize 100 100
+
+#  Autoshading a window and putting
+#  it to top layer is a good idea 
+#  for gimp toolboxes or your im 
+#  contact list.
+
+DestroyFunc AutoShadeAndOnTop
+AddToFunc AutoShadeAndOnTop
++ I ToggleAutoShade
++ I WinOnTop

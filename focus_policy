@@ -1,0 +1,10 @@
+#  This line sets up focus policy
+#  similar to that of openbox or 
+#  metacity - the window gets focus 
+#  as you click it. See manuals
+#  for other focus policies.
+#
+#  You can also set individual focus 
+#  policies for these or that windows.
+
+Style * ClickToFocus

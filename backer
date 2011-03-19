@@ -1,0 +1,20 @@
+#  FvwmBacker is a fvwm module which takes care
+#  of your desktop wallpapers. 
+#
+#  Please mind that this file is not read by
+#  default, see ./config for details.
+# 
+#  Here is the example of setting different wallpapers
+#  for different desktop pages (see desktop file for 
+#  crude explanation of fvwm desktop concept)
+#  
+#  The theme does not include wallpapers, so you'll 
+#  have to type in paths of your own.
+#  
+#  You also have to make sure the images are .png
+#  and their size fit your screen resolution 
+#  for this to work.
+
+*FvwmBacker: Command (Desk 0, Page 0 0) Exec fvwm-root $[HOME]/Pictures/stripes.png
+*FvwmBacker: Command (Desk 0, Page 1 0) Exec fvwm-root $[HOME]/Pictures/snow.png
+

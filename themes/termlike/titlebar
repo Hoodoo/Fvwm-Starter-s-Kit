@@ -1,0 +1,36 @@
+#  Here the titlebar buttons
+#  behaviour is defined. 
+#  This file is in theme subfolder
+#  because one might want a button 
+#  pixmap matching it's function.
+#  
+#  I propose to keep all bindings to 
+#  titlebar buttons here. 
+#  
+#  Simple commands can be issued 
+#  as shown below.
+# 
+#  The buttons enumeration goes like
+#  1 3 5 7 9  Titlebar  0 8 6 4 2
+#  
+#  As you can see, this theme uses 
+#  pretty normal buttons layout _[]X
+#  with quite expectable buttons behaviour.
+#  
+#  One more button would summon the window
+#  menu (which is defined in a window_menu
+#  file)
+
+Mouse 1 2 N Delete
+Mouse 1 4 N Maximize 100 100
+Mouse 1 6 N Iconify
+
+#  Make sure you can deiconify an iconified
+#  window somehow.
+
+Mouse 1 I N Iconify
+
+Mouse 1 1 A Menu WindowMenu
+
+#  Note that you can bind literally anything 
+#  to your window decoration buttons.

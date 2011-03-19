@@ -1,0 +1,29 @@
+#  In this file individual styles for
+#  applications are defined.
+#
+#  'Style' means almost every aspect
+#  of controlling the window: decorations,
+#  layers, desktop or page it starts on,
+#  wether it is shown in window list or not,
+#  focus policy etc.
+#
+#  Some basic styles are defined here, add
+#  ones of your own if you need.
+
+#  No window decorations for quake-like terminal
+#  and fvwmconsole
+
+Style quake-term !Title, !Handles, !Borders, !Icon, WindowListSkip
+Style FvwmConsole !Title, !Handles, !Borders, !Icon, WindowListSkip
+
+#  No titlebar for gmrun and shutdown dialog
+
+Style gmrun !Title
+Style shutdown-dialog.py !Title
+
+#  Some applications like panels and trays need
+#  no window decorations too:
+#  Style conky !Title, !Handles, !Borders, !Icon, WindowListSkip
+#  Style tint2 !Title, !Handles, !Borders, !Icon, WindowListSkip 
+#  Style fbpanel !Title, !Handles, !Borders, !Icon, WindowListSkip
+#  Style stalonetray !Title, !Handles, !Borders, !Icon, WindowListSkip

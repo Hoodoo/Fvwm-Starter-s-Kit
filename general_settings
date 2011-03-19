@@ -1,0 +1,30 @@
+#  Couple of settings you would
+#  definitely need:
+#  
+#  Ignore CapsLock and NumLock
+#  modifiers so that they do not 
+#  mess up your configuration:
+
+IgnoreModifiers 2L
+
+#  Resize and move windows instead
+#  of 'borders':
+
+OpaqueMoveSize unlimited
+Style * ResizeOpaque
+
+#  IndexedWindowName - to make sure
+#  each window name is unique so 
+#  further window manipulations would
+#  be more precise:
+
+Style * IndexedWindowName
+
+#  Get rid of applications icons
+
+Style * !Icon
+
+#  Hides the position or size window that is 
+#  usually shown when a window is moved or resized interactively
+
+HideGeometryWindow

@@ -1,0 +1,41 @@
+#  Preferences menu - for quick acces to
+#  some configuration files and utilities;
+#  two submenus are defined right here
+
+DestroyMenu Prefernces
+AddToMenu Preferences
++ "FVWM" Popup Fvwm_menu
++ "Edit dotfiles" Popup Dotfiles_menu
++ "GTK && Icons" Exec exec lxappearance
++ "Mixer" Exec exec urxvt -e alsamixer
++ "Networking" Exec exec wicd-client -n
+
+DestroyMenu Fvwm_menu
+AddToMenu Fvwm_menu
++ "Autostarted applications" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/autostarted_applications
++ "Main config" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/config
++ "Desktops" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/desktops
++ "Environmental variables" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/environmental_variables
++ "Focus policy" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/focus_policy
++ "Functions" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/functions
++ "General settings" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/general_settings
++ "Keybindings && Mouse" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/keybindings_and_mouse
++ "Per-applicaton rules" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/per-application_rules
++ "Configure backer" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/backer 
++ "" Nop
++ "Regenerate apps menu" Exec exec python2 $[FVWM_USERDIR]/scripts/xdgmenu-updated.py /etc/xdg/menus/applications.menu > $[FVWM_USERDIR]/applications_menu
++ "Main menu" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/main_menu
++ "Preferences menu" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/preferences_menu
++ "Window menu" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/window_menu
++ "" Nop
++ "Playground" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/test
+
+DestroyMenu Dotfiles_menu
+AddToMenu Dotfiles_menu
++ "cheatsheet" Exec exec $[fvwm_editor] ~/.fvwm/files/.cheatsheet
++ ".conkyrc" Exec exec $[fvwm_editor] ~/.conkyrc
++ ".Xdefaults" Exec exec $[fvwm_editor] ~/.Xdefaults
++ ".mcabberrc" Exec exec $[fvwm_editor] ~/.mcabberrc
++ ".zshrc" Exec exec $[fvwm_editor] ~/.zshrc 
++ ".bashrc" Exec exec $[fvwm_editor] ~/.bashrc
++ ".vimrc" Exec exec $[fvwm_editor] ~/.vimrc

@@ -1,0 +1,33 @@
+This is a modular fvwm configuration aimed to help these who would like to try fvwm get a working and more or less familiar environment in a relatively short time. This configuration is not a replacement of fvwm manual pages at all, but it is a nice opportunity to start using a window manager which actually _manages_ windows. %)
+ 
+Before you start making your setup please decide which applications you would like to use, especially text editor, terminal emulator, web browser and file manager (optionally - mail client, messenger and music player).
+
+If it is your first experience with standalone window manager, consider reading a list of recommended applications for openbox at Archlinux community wiki: https://wiki.archlinux.org/index.php/Openbox#Recommended_programs and a list of lightweight applications: https://wiki.archlinux.org/index.php/Lightweight_Applications - no matter what distribution you use, it would give you an idea of what you used to take for granted using desktop environments and which applications to choose if you somewhy decided to build a configurable and lightweigth working environment for yourself.
+
+This configuration relies on couple of applications:
+
+- scrot as screenshot making utility
+- xdg-open for mime-types handling
+- gmrun as application runner
+- python for shutdown dialog and applications menu
+- lxappearance to manage fonts, gtk themes and icons
+- conky for displaying hotkeys cheatsheet
+
+All of these are optional and you are not obliged to use them, but in this case you'll need to find some other way to perform these tasks.
+
+With all this said, let's start.
+
+This configuration is split into several files, each of them defines some aspects of wm behaviour which seem close to me. Each file, like one guy told me, 'is commented as hell', so after reading it you at least have general idea of what it does and can make some changes which would most likely work.
+
+Just open one file after another with your text editor of choice, read explanations and make minor edits where necessary.
+
+Changing window decorations and menus is briefly explained in /themes/gray folder, so read files there for explanations, all the rest might be irrelevant  (yet working).
+
+Thanks:
+
+Thomas Adam for pointing out mistakes, giving explanations and running fvwm forums
+rstrcogburn@archlinux forums for collaboration and encouraging
+Victor Ananjevsky for handy applications menu script
+Gautam Iyer for fvwm.vim file
+Friendly crunchbanglinux community and distribution developers, I borrowed some really great ideas from them
+

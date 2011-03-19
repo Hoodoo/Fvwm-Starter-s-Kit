@@ -1,0 +1,105 @@
+#  Below I will write rather simple
+#  multipixmap window decoration.
+#
+#  I'm going to have pixmaps for 
+#  left edge of titlebar, rest of 
+#  titlebar and four pixmaps for buttons - 
+#  I use pretty boring _[]X layout,
+#  having the rest of functions on
+#  hotkeys and as window menu entries.
+#
+#  I am going to have different 
+#  set of decorations for active 
+#  and inactive windows, which
+#  makes 12 pixmaps total.
+#
+#  One can write more complicated 
+#  or simple themes - eleven pixmaps
+#  can be used for titlebar alone, 
+#  tiled or stretced, pixmap or vector
+#  pictures can be set for all ten 
+#  buttons fvwm allows to have on the
+#  titlebar, separate picture for 
+#  each of button states.
+#
+#  As usual, refer to manuals for 
+#  list of all options fvwm suggests.
+#
+#  Back to my theme, though. 
+
+#  Let's start with the titlebar, 
+#  tiling the pixmaps left to right.
+#  I would, for simplicity, name 
+#  the pixmaps like StateWhereItGoes.xpm
+#
+#  I would use xpm to be able to change
+#  colors with simple script in future,
+#  but fvwm has png support as well.
+#
+#  Let's set titlebar height (optional)
+#  first and make window title left
+#  aligned (also optional)
+
+TitleStyle Height 13
+TitleStyle LeftJustified
+
+#  Now we know what height the titlebar 
+#  has and you can set up a nice looking font
+#  in fonts file in this folder.
+
+TitleStyle Active MultiPixmap LeftEnd AdjustedPixmap LeftEndActive.xpm Main AdjustedPixmap MainActive.xpm RightEnd AdjustedPixmap RightEndActive.xpm
+TitleStyle Inactive MultiPixmap LeftEnd AdjustedPixmap LeftEndInactive.xpm Main AdjustedPixmap MainInactive.xpm RightEnd AdjustedPixmap RightEndInactive.xpm 
+
+#  And button styles are written the similar way:
+
+ButtonStyle 6 Active AdjustedPixmap 6Active.xpm
+ButtonStyle 6 Inactive AdjustedPixmap 6Inactive.xpm
+ButtonStyle 4 Active  AdjustedPixmap 4Active.xpm
+ButtonStyle 4 Inactive AdjustedPixmap 4Inactive.xpm
+ButtonStyle 2 Active AdjustedPixmap 2Active.xpm
+ButtonStyle 2 Inactive AdjustedPixmap 2Inactive.xpm  
+ButtonStyle 1 Active AdjustedPixmap 1Active.xpm
+ButtonStyle 1 Inactive AdjustedPixmap 1Inactive.xpm
+
+#  Set border width and handle width
+#  They should be the same, or else 
+#  greater value is used.
+
+Style * BorderWidth 1	
+Style * HandleWidth 1
+
+#  IMPORTANT! Colorset numeration
+#  convention given in manuals is:
+#    0 = Default colors
+#    1 = Inactive windows
+#    2 = Active windows
+#    3 = Inactive menu entry and menu background
+#    4 = Active menu entry
+#    5 = greyed out menu entry (only bg used)
+#    6 = module foreground and background
+#    7 = hilight colors
+
+#  Keeping this in mind, define colorsets 
+#  for window borders: 
+
+BorderStyle Active Colorset 8 -- flat 
+BorderStyle Inactive Colorset 9 -- flat
+Colorset 10 fg   #303030, fgsh #666666
+Colorset 11 fg   #60a060, fgsh #000000
+
+#  One more thing to specify here is 
+#  colors in which window titles are
+#  written - again, different for active
+#  and inactive windows: 
+
+Style "*" HilightColorset 11
+Style "*" Colorset 10
+
+#  Get rid of 3d everywhere - if 
+#  it's not done, we will have our
+#  pixmaps on the top surface of 
+#  pseudo3d button.
+
+TitleStyle -- flat
+ButtonStyle All Active -- flat
+ButtonStyle All Inactive -- flat

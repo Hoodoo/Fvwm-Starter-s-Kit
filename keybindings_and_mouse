@@ -1,0 +1,157 @@
+#  fvwm's special: the keybindings.
+#  The syntax is 
+#  Key (optionally - window name) Your_Key_Name Context Modifier Action
+#
+#  - You can optionally define a hotkey depending on active window
+#  title.
+#  Type the exact window title or use symbols and wildcards in brackets,
+#  e.g. (gedit) or (*edit*).
+#
+#  - Your_Key_Name is any key except for modifiers, name can be obtained
+#  using xev except for PrtSc which is Print
+#
+#  - Contexts understood by fvwm are:
+#
+#  R - Root window
+#  I - Iconified window
+#  F - window decoration corner
+#  S - window decoration side
+#  T - window decoration title
+#  W - active window
+#  0-9 - titlebar buttons (see corresponding file)
+#  M - Menu
+#  A - any context
+#
+#  You can combine contexts: FWST etc.
+#
+#  - Modifiers are:
+#  ctrl - C
+#  super - 4
+#  alt - 1
+#  shift - S
+#  caps - L
+#  num - 2
+#
+#  Again, you can combine modifiers: 1S, 4S, etc. 
+#  
+#  If you use multiple desktops, set desktop switching 
+#  here, the command is GotoDesk 0...n
+#  Here are some bindings to manage your windows and
+#  launch some applications, but you can set much
+#  more of them and tune them really fine.
+#  Use Exec exec to run applications.
+
+#  Window management and general purpose 
+#  hotkeys, couple of ideas come from crunchbanglinux:
+
+Key F4 W M DeleteWin
+Key Tab A M WindowList Root NoGeometry
+Key M A M Module FvwmConsole
+Key F2 A 1 Exec exec $[fvwm_runner]
+Key Space A 4 Menu MainMenu
+Key t W S4 WinOnTop
+Key a W S4 ToggleAutoShaded
+Key d W S4 UnDecorate
+Key d W 4 Decorate
+Key m W 4 Maximize 100 100
+Key r W 4 ReadableWidth
+Key i W 4 Iconify
+Key F7 W 1 Move
+Key F8 W 1 Resize
+Key D W 4 Decorate
+
+#  Playing with window title, making it go
+#  to whatever side of the window we want:
+
+Key Left W S4 WindowStyle TitleAtLeft
+Key Right W S4 WindowStyle TitleAtRight
+Key Up W S4 WindowStyle TitleAtTop
+Key Down W S4 WindowStyle TitleAtBottom
+
+#  Grouping windows and switching between
+#  groups and inside them:
+#
+#  "Group" a grouped window once again 
+#  to dismiss it.
+#  
+#  One window can belong to several groups.
+
+Key 1 W C4 AddToGroup 1
+Key 2 W C4 AddToGroup 2 
+Key 3 W C4 AddToGroup 3
+Key 1 A 4 GroupSwitch 1 
+Key 2 A 4 GroupSwitch 2
+Key 3 A 4 GroupSwitch 3
+
+#  Screenshots and screencasts made easy:
+
+Key Print A N FvwmDesktopScreenshot
+
+#  Launch an application if it's not 
+#  running or raise its window if
+#  there is one and switch between given
+#  application's windows if there are two
+#  or more.
+#
+#  The LaunchRaiseSwitch function takes
+#  two parameters: window name typical 
+#  for given application to tell its windows 
+#  from all the rest and command launching the
+#  application. The commands are defined in 
+#  environmental_variables file so that you 
+#  don't have to type them in here and there,
+#  the window names here are for applications
+#  I use, type in yours for these hotkeys to
+#  work properly. As you can see, you can use
+#  wildcards.
+
+Key t A 4 LaunchRaiseSwitch urxvt $[fvwm_terminal] 
+Key f A 4 LaunchRaiseSwitch *File*Manager $[fvwm_filemanager]
+Key e A 4 LaunchRaiseSwitch *gedit $[fvwm_editor]
+Key w A 4 LaunchRaiseSwitch *Namoroka $[fvwm_browser]
+Key p A 4 LaunchRaiseSwitch *Sonata* $[fvwm_player]
+Key g A 4 LaunchRaiseSwitch *GIMP gimp
+
+#  These are pretty simple - they just launch 
+#  an application, no matter if there is an instance
+#  of it running.
+
+Key t A C4 Exec exec $[fvwm_terminal]
+Key f A C4 Exec exec $[fvwm_filemanager]
+Key e A C4 Exec exec $[fvwm_editor]
+Key w A C4 Exec exec $[fvwm_browser]
+Key p A C4 Exec exec $[fvwm_player]
+Key g A C4 Exec exec gimp
+
+#  Quake-like terminal and quake-like fvwm console
+
+Key Grave A C QLikeTerm $[fvwm_terminal] quake-term 1366 768 0 0
+Key Q A 4 QLikeFvwmConsole  812 360 275 408
+
+#  Mouse bindings are set the same way as
+#  key bindings, look at the examples which 
+#  make fvwm mimic mainstream window managers 
+#  functionality
+
+Mouse 2 R A Menu MainMenu
+Mouse 1 R A WindowList Root NoGeometry
+Mouse 1 T A TitleFunction
+
+#  !! Note that mouse bindings concerning 
+#  titlebar buttons are written in /themes/theme/titlebar
+#  file !!
+
+#  Key Left A 4 GoToPage 0 0
+#  Key Right A 4 GoToPage 1 0
+#  Key Left W S4 MoveToPage 0 0
+#  Key Right W S4 MoveToPage 1 0
+
+#  Getting multimedia keys to work.
+#  Yes, fvwm can do that for you, ain't it cute?
+
+Key XF86AudioRaiseVolume A A Exec amixer set PCM 3+
+Key XF86AudioLowerVolume A A Exec amixer set PCM 3-
+Key XF86AudioMute A A Exec exec amixer set Master toggle
+Key XF86Launch1 A A Exec exec sudo rmmod psmouse
+Key XF86WebCam A A Exec exec sudo modprobe psmouse
+Key XF86PowerOff A A exec exec shutdown-dialog.py

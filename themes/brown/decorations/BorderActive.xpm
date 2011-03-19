@@ -1,0 +1,8 @@
+/* XPM */
+static char * BorderActive_xpm[] = {
+"2 2 3 1",
+" 	c None",
+".	c #201111",
+"+	c #F40C0C",
+"..",
+"++"};
