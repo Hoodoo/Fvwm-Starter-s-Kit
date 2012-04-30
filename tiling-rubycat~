@@ -1,0 +1,36 @@
+# =================================================================
+# FvwmPiazza
+# =================================================================
+All (FvwmPiazza) Close
+DestroyModuleConfig FvwmPiazza: *
+
+*FvwmPiazza: Struts 0 0 22 0
+*FvwmPiazza: Exclude (TopPanel|shutdown-dialog.py|fvwmident|gmrun|lumusic|lumail|luchat)
+*FvwmPiazza: Layout0 Tall 12
+*FvwmPiazza: Layout1 Tall 12
+*FvwmPiazza: Layout2 Tall 12
+*FvwmPiazza: Layout3 Columns 10:80:10
+
+Module FvwmPiazza
+
+# Hotkeys
+Key n               A       3       SendToModule FvwmPiazza "None"
+Key f               A       3       SendToModule FvwmPiazza Full
+Key t               A       3       SendToModule FvwmPiazza Tall 3
+Key t               A       3S      SendToModule FvwmPiazza Tall 3,Right
+Key c               A       3       SendToModule FvwmPiazza Columns 2
+Key c               A       3S      SendToModule FvwmPiazza Columns 3,18:64:18
+Key r               A       3       SendToModule FvwmPiazza Rows 2
+Key r               A       3S      SendToModule FvwmPiazza Rows 2,66
+Key w               A       3       SendToModule FvwmPiazza Wide 3
+Key w               A       3S      SendToModule FvwmPiazza Wide 3,Bottom
+Key g               A       3       SendToModule FvwmPiazza Grid 4,2
+Key g               A       3S      SendToModule FvwmPiazza Grid 4,2,60,50
+
+Key less    A       3S      SendToModule FvwmPiazza Decrement 1
+Key greater A       3S      SendToModule FvwmPiazza Increment 1
+
+Key Left    A       3S      Current (!CirculateHit) SendToModule FvwmPiazza PrevGroup
+Key Right   A       3S      Current (!CirculateHit) SendToModule FvwmPiazza NextGroup
+
+Style "*layers, channels"

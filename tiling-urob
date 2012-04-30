@@ -1,0 +1,425 @@
+# Probably move that to start - RG
+
+
+# Define height of FvwmButtons ("taskbar") and workspace area. 
+SetEnv FVWM_TB_HEIGHT 18 #EwmhBaseStruts 0 0 $[FVWM_TB_HEIGHT] 0
+
+# Define default width of master area (in percent of screen)
+SetEnv FVWM_MASTER_WIDTH 50
+Piperead 'echo SetEnv FVWM_MASTER_PIXWIDTH $(( $[FVWM_MASTER_WIDTH]*$[vp.width]/100 ))'
+
+
+# Define pages which start in tiling mode per default
+# ----------------------------------
+# Usage: SetEnv FVWM_TILING_$[Desk.n]-$[Page.nx]-$[Page.ny] Bool
+# (Repeat for each page that is to start in tiling mode)
+# ----------------------------------
+SetEnv FVWM_TILING_0-0-0 1
+
+# Tiling specific keybindings
+
+Key J A M PrevWindow
+Key K A M NextWindow
+Key J A CM SwapWindowsDir SouthEast SouthWest
+Key K A CM SwapWindowsDir NorthEast NorthWest
+Key H A M DecreaseMasterWidth
+Key L A M IncreaseMasterWidth
+
+Key Space A M ToggleTiling
+Key Space A CM WindowToggleTiling
+Key Space A SM WindowToggleTiling # alternate shortcut when running under vmware
+Key Return A CM SetCurrentMaster
+Key Return A SM SetCurrentMaster # alternate shortcut when running under vmware
+
+#Rey M A M Maximize-and-SetFloating 100 100
+Key T A M Toggle-Title
+Key S A M Stick
+Key X A M Iconify true
+Key C A SM Close
+Key R A SM RefreshWindow
+
+Key Escape A M GotoPage prev
+Key grave A M ToggleBGC
+Key dead_grave A M ToggleBGC
+Key Tab A M WindowList (CurrentDesk) Root c c CurrentAtEnd \
+                     CurrentDesk IconifiedAtEnd NoGeometry MaxLabelWidth 40 \
+                     NoCurrentDeskTitle SelectOnRelease Meta_L
+
+
+### Nx1 DeskLayout
+Key Up A M GotoDesk 0 0
+Key Down A M GotoDesk 0 1
+Key Left A M GotoPage -1p 0p
+Key Right A M GotoPage +1p 0p
+Key Left A CM MoveAndGotoPage -1 0
+Key Right A CM MoveAndGotoPage +1 0
+Key bracketleft A M GotoPage -1p 0p
+Key bracketright A M GotoPage +1p 0p
+Key bracketleft A CM MoveAndGotoPage -1 0
+Key bracketright A CM MoveAndGotoPage +1 0
+
+# Not so Tiling specific functions
+
+#----- Window Control {{{2
+
+DestroyFunc LeftClick
+AddToFunc LeftClick
++ M Raise
++ M Move-and-SetFloating
++ C RaiseLower
++ D Raise
++ D Maximize-and-SetFloating 0 100
+
+DestroyFunc RightClick
+AddToFunc RightClick
++ M Raise
++ M Resize-and-SetFloating
++ C WindowshadeFunc
+
+DestroyFunc WindowListFunc
+AddToFunc WindowListFunc
++ I Iconify false
++ I Windowshade false
++ I Raise
++ I FlipFocus
+#+ I WarpToWindow 50 8p
+
+DestroyFunc NextWindow
+AddToFunc NextWindow
++ I ScanForWindow NorthEast NorthWest (CurrentPage, !Iconic, AcceptsFocus) FlipFocus
++ I Current Raise
+#+ I Current WarpToWindow 5 5
+
+DestroyFunc PrevWindow
+AddToFunc PrevWindow
++ I ScanForWindow SouthEast SouthWest (CurrentPage, !Iconic, AcceptsFocus) FlipFocus
++ I Current Raise
+#+ I Current WarpToWindow 5 5
+
+DestroyFunc Warp-and-Move
+AddToFunc Warp-and-Move
++ I WarpToWindow 50 50
++ I Move-and-SetFloating
+
+DestroyFunc Warp-and-Resize
+AddToFunc Warp-and-Resize
++ I WarpToWindow 50 50
++ I Resize-and-SetFloating
+
+DestroyFunc MoveAndGotoPage
+AddToFunc MoveAndGotoPage
++ I MoveToPage $0w $1w
++ I GotoPage $0p $1p
+
+DestroyFunc WindowShadeFunc
+AddToFunc WindowShadeFunc
++ I Current WindowStyle Title
++ I Current State 3 False
++ I WindowShade
+#+ I All (Shaded, CurrentPage) PlaceAgain
+#+ I PlaceAgain
+
+DestroyFunc RemoveTitle
+AddToFunc RemoveTitle
++ I Current WindowStyle !Title
+#+ I Current Resize keep w+15p
++ I Current State 3 True
+
+DestroyFunc Toggle-Title
+AddToFunc Toggle-Title
++ I Current (State 3) WindowStyle Title
++ I TestRc (Match) Current Resize keep w-19p
++ I Current State 3 Toggle
++ I Current (State 3) WindowStyle !Title
++ I TestRc (Match) Current Resize keep w+19p
+
+DestroyFunc LockScreen
+AddToFunc LockScreen
++ I Next (FvwmButtons, State 0) EdgeThickness 1
++ I Next (FvwmButtons) State 0
++ I Next (FvwmButtons, State 0) EdgeThickness 0
+
+DestroyFunc rxvt-under-mouse
+AddToFunc rxvt-under-mouse
++ I Style "urxvt" PositionPlacement UnderMouse
++ I Exec exec urxvtcd
++ I Wait urxvt
++ I Style "urxvt" MinOverlapPercentPlacement
+
+DestroyFunc Maintenance
+AddToFunc Maintenance
++ I SendToModule FvwmAnimate pause
++ I All (!Visible, CurrentPage, !Iconic, !Sticky, !Focused) Iconify on
++ I SendToModule FvwmAnimate play
+
+#----- Tiling Functions {{{2
+
+#--------- General / Initialization {{{3
+
+Style * ResizeHintOverride
+
+DestroyModuleConfig FvwmEvent: *
+*FvwmEvent: Cmd
+*FvwmEvent: add_window "NewWindow"
+*FvwmEvent: destroy_window "DestroyWindow"
+*FvwmEvent: deiconify "NewWindow"
+*FvwmEvent: iconify "DestroyWindow"
+#*FvwmEvent: windowshade "DestroyWindow"
+#*FvwmEvent: dewindowshade "NewWindow"
+*FvwmEvent: new_page "NewPageFunc"
+*FvwmEvent: new_desk "NewPageFunc"
+
+### Executed on page/desk change
+DestroyFunc NewPageFunc
+AddToFunc NewPageFunc
++ I None (CurrentPage, Focused) Prev (CurrentPage, !iconic, AcceptsFocus) FlipFocus
++ I FixSticky
++ I SendToModule FvwmButtons ChangeButton Layout Icon floating18.png
++ I Test (!EnvMatch FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1) Break
++ I SendToModule FvwmButtons ChangeButton Layout Icon tile18.png
++ I None (CurrentPage, !State 1, !State 2, !iconic, AcceptsFocus) Break
++ I Refresh
++ I All (CurrentPage, !iconic, AcceptsFocus, State 1) \
+    Resize frame $[FVWM_MASTER_PIXWIDTH]p keep
++ I All (CurrentPage, !iconic, AcceptsFocus, !State 1, !State 2) \
+    PipeRead 'echo ResizeMove frame \
+    $(( $[vp.width] - $[FVWM_MASTER_PIXWIDTH] ))p keep $[FVWM_MASTER_PIXWIDTH]p keep'
+
+SetEnv Fvwm_CurrentPage $[desk.n]-$[page.nx]-$[page.ny]
+
+### Nicely fit sticky windows into current page when in tiling mode
+DestroyFunc FixSticky
+AddToFunc FixSticky
++ I SetEnv Fvwm_PrevPage $[Fvwm_CurrentPage]
++ I SetEnv Fvwm_CurrentPage $[desk.n]-$[page.nx]-$[page.ny]
++ I All (sticky, !iconic, !State 2) SetEnv Fvwm_SavePage_$[Fvwm_PrevPage]
++ I TestRc (Match) KeepRc None (sticky, !iconic, state 1) \
+    KeepRc Next (CurrentPage, state 1) Schedule 5 FlipFocus
++ I TestRc (Match) KeepRc Next (sticky, !iconic, !State 2, State 1) Schedule 5 FlipFocus
++ I TestRc (Match) Schedule 10 NewWindow
++ I TestRc (Match) UnsetEnv Fvwm_SavePage_$[Fvwm_CurrentPage]
++ I TestRc (Match) Break 1
++ I Test (EnvIsSet Fvwm_SavePage_$[Fvwm_CurrentPage]) Schedule 10 DestroyWindow
++ I UnsetEnv Fvwm_SavePage_$[Fvwm_CurrentPage]
+
+#--------- Toggle floating for individual windows {{{3
+
+### Toggles tiling/floating for current window
+DestroyFunc WindowToggleTiling
+AddToFunc WindowToggleTiling
++ I Test (!EnvMatch FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1) Break 1
++ I Current State 2 Toggle
++ I Current (State 2) Piperead 'echo Move 50-50w 50-50w+$(( $[FVWM_TB_HEIGHT] / 2 ))p'
++ I TestRC (Match) Raise
++ I TestRC (Match) WarpToWindow 50 50
++ I PostToggleTiling
+
+### Move window and set to floating mode
+DestroyFunc Move-and-SetFloating
+AddToFunc Move-and-SetFloating
++ I Move
++ I Test (!EnvMatch FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1) Break 1
++ I Current State 2 True
++ I PostToggleTiling
+
+### Resize window and set to floating mode
+DestroyFunc Resize-and-SetFloating
+AddToFunc Resize-and-SetFloating
++ I Resize Direction SE warptoborder
++ I Test (!EnvMatch FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1) Break 1
++ I Current State 2 True
++ I PostToggleTiling
+
+### Maximize window and set to floating/tiling mode
+DestroyFunc Maximize-and-SetFloating
+AddToFunc Maximize-and-SetFloating
++ I Maximize $0 $1
++ I Test (!EnvMatch FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1) Break 1
+#---Use 1st line to push window into tiling mode when unmaximizing,
+# use 2nd line to leave it floating (when needed, use CM+Space) ---
+#+ I Current (!Maximized) State 2 False
++ I Current (!Maximized) Break 1
+#---------------------------------------------------------------------
++ I Current (Maximized) State 2 True
++ I PostToggleTiling
++ I Current Raise
+
+### Rearrange remaining windows when in tiling mode
+DestroyFunc PostToggleTiling
+AddToFunc PostToggleTiling
++ I Current (State 2) State 1 False
++ I TestRC (Match) DestroyWindow
+#+ I TestRC (Match) WindowStyle Title
+#+ I Current (!State 2) WindowStyle !Title
++ I Current (!State 2) NewWindow
+# TODO: Mark floating window in IconMan
+
+#--------- New Windows / Toggle Tiling / WMIArrange {{{3
+
+### Executed when new window enters tiling mode
+DestroyFunc NewWindow
+AddToFunc NewWindow
++ I Test (!EnvMatch FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1) Break 1
++ I Current (State 2|Transient) NoWindow Break 1
+#---Comment the next 2 lines for new windows to start in slave area---
++ I Current (CurrentPage, !State 2, !iconic, AcceptsFocus) \
+    KeepRc All (CurrentPage, State 1) State 1 false
++ I TestRc (Match) Current State 1 true
+#---------------------------------------------------------------------
++ I None (CurrentPage, State 1) Prev (CurrentPage, !State 2, !iconic, AcceptsFocus) \
+    State 1 True
++ I WMIArrange
++ I Next (FvwmButtons, !HasPointer) Next (CurrentPage, State 1) WarpToWindow -5 5
+#+ I Next (CurrentPage, State 1) Schedule 120 $[w.id] FlipFocus
+
+### Executed when window leaves tiling mode
+DestroyFunc DestroyWindow
+AddToFunc DestroyWindow
++ I Test (!EnvMatch FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1) Break
++ I All (iconic) State 1 False
++ I None (CurrentPage, State 1) Current (CurrentPage, !State 2, !iconic, AcceptsFocus) \
+    State 1 True
++ I None (CurrentPage, State 1) Prev (CurrentPage, !State 2, !iconic, AcceptsFocus) \
+    State 1 True
++ I WMIArrange
+
+### Toggle tiling mode for current workspace
+DestroyFunc ToggleTiling
+AddToFunc ToggleTiling
++ I Test (EnvMatch FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1) \
+    SetEnv FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 0
++ I TestRc (Match) All (CurrentPage) State 1 False
++ I TestRc (Match) SendToModule FvwmButtons ChangeButton Layout Icon floating18.png
+#+ I TestRc (Match) KeepRc All (CurrentPage, AcceptsFocus) WindowStyle Title
++ I TestRc (Match) Break
++ I SetEnv FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1
++ I All (CurrentPage) State 1 False
+#+ I All (CurrentPage, AcceptsFocus) WindowStyle !Title
+#+ I UpdateStyles
++ I Current (State 2|Transient) Prev Focus
++ I Current State 1 True
++ I WMIArrange
++ I SendToModule FvwmButtons ChangeButton Layout Icon tile18.png
+
+
+PipeRead 'echo SetEnv vp.width_1 $(( $[vp.width] - 1 ))'
+PipeRead 'echo SetEnv vp.height_1 $(( $[vp.height] - 1 ))'
+
+### Does the rearranging when in tiling mode
+DestroyFunc WMIArrange
+AddToFunc WMIArrange
++ I Next (CurrentPage, State 1) \
+    ResizeMove frame $[FVWM_MASTER_PIXWIDTH]p -$[FVWM_TB_HEIGHT]p \
+    0 $[FVWM_TB_HEIGHT]p
++ I None (CurrentPage, !State 1, !State 2, !iconic, AcceptsFocus) \
+    Next (CurrentPage, State 1) \
+    ResizeMove frame 100 -$[FVWM_TB_HEIGHT]p 0 $[FVWM_TB_HEIGHT]p
++ I All (CurrentPage, State 1) WindowStyle WindowListSkip
++ I All (CurrentPage, State 2) WindowStyle WindowListSkip
++ I UpdateStyles
++ I ModuleSynchronous FvwmRearrange -tile -u -m -s -r -h -noraise \
+    $[FVWM_MASTER_PIXWIDTH]p $[FVWM_TB_HEIGHT]p $[vp.width_1]p $[vp.height_1]p
++ I All (CurrentPage, State 1) WindowStyle WindowListHit
++ I All (CurrentPage, State 2) WindowStyle WindowListHit
++ I All (FvwmButtons|FvwmPager) WindowStyle WindowListSkip
+
+### Does the rearranging when in horizontal tiling mode
+DestroyFunc WMIArrangeH
+AddToFunc WMIArrangeH
++ I Next (CurrentPage, State 1) \
+    PipeRead 'echo ResizeMove frame 100 $(( $[FVWM_MASTER_PIXWIDTH] - $[FVWM_TB_HEIGHT] ))p \
+    0 $[FVWM_TB_HEIGHT]p'
++ I None (CurrentPage, !State 1, !State 2, !iconic, AcceptsFocus) \
+    Next (CurrentPage, State 1) \
+    ResizeMove frame 100 -$[FVWM_TB_HEIGHT]p 0 $[FVWM_TB_HEIGHT]p
++ I All (CurrentPage, State 1) WindowStyle WindowListSkip
++ I All (CurrentPage, State 2) WindowStyle WindowListSkip
++ I UpdateStyles
++ I ModuleSynchronous FvwmRearrange -tile -u -m -s -r -noraise \
+    0 $[FVWM_MASTER_PIXWIDTH]p $[vp.width_1]p $[vp.height_1]p
++ I All (CurrentPage, State 1) WindowStyle WindowListHit
++ I All (CurrentPage, State 2) WindowStyle WindowListHit
++ I All (FvwmButtons|FvwmPager) WindowStyle WindowListSkip
+
+#--------- SetCurrentMaster / SwapWindows {{{3
+
+### Set the current window to master
+DestroyFunc SetCurrentMaster
+AddToFunc SetCurrentMaster
++ I Test (!EnvMatch FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1) Break
++ I Current (State 2|Transient) NoWindow Break
++ I Current SetEnv FvwmId_current $$$$[w.id]
++ I Next (CurrentPage, State 1) SetEnv FvwmId_dest $$$$[w.id]
++ I SwapWindowsToggleState
++ I SwapWindows
+
+### Swap window with next window in specified direction
+DestroyFunc SwapWindowsDir
+AddToFunc SwapWindowsDir
++ I Current (State 2|Transient) NoWindow Break
++ I Current SetEnv FvwmId_current $$$$[w.id]
++ I ScanForWindow $0 $1 (CurrentPage, !Iconic, AcceptsFocus, !State 2) \
+    SetEnv FvwmId_dest $$$$[w.id]
++ I SwapWindowsToggleState
++ I SwapWindows
+
+### Toggles master/floating when swapping windows
+DestroyFunc SwapWindowsToggleState
+AddToFunc SwapWindowsToggleState
++ I Piperead '[ $[FvwmId_current] = $[FvwmId_dest] ] && echo Break 1'
++ I WindowId $[FvwmId_current] ThisWindow (state 1) \
+    WindowId $[FvwmId_dest] State 1 True
++ I WindowId $[FvwmId_current] ThisWindow (state 1) \
+    WindowId $[FvwmId_current] State 1 False
++ I TestRc (Match) Break 1
++ I WindowId $[FvwmId_dest] ThisWindow (state 1) \
+    WindowId $[FvwmId_current] State 1 True
++ I WindowId $[FvwmId_dest] ThisWindow (state 1) \
+    WindowId $[FvwmId_dest] State 1 False
+
+### Does the actually swapping
+DestroyFunc SwapWindows
+AddToFunc SwapWindows
++ I WindowId $[FvwmId_current] \
+    SetEnv FvwmCoord_current \
+    '$$$$[w.width]p $$$$[w.height]p $$$$[w.x]p $$$$[w.y]p'
++ I WindowId $[FvwmId_dest] \
+    SetEnv FvwmCoord_dest \
+    '$$$$[w.width]p $$$$[w.height]p $$$$[w.x]p $$$$[w.y]p'
++ I WindowId $[FvwmId_current] ResizeMove frame $[FvwmCoord_dest]
++ I WindowId $[FvwmId_dest] ResizeMove frame $[FvwmCoord_current]
++ I WindowId $[FvwmId_current] WarpToWindow 50 50
++ I UnsetEnv FvwmId_current
++ I UnsetEnv FvwmCoord_current
++ I UnsetEnv FvwmId_dest
++ I UnsetEnv FvwmCoord_dest
+
+#--------- Increase/Decrease MasterWidth {{{3
+
+### Increases width of master area
+DestroyFunc IncreaseMasterWidth
+AddToFunc IncreaseMasterWidth
++ I Test (!EnvMatch FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1) Break
++ I Test (EnvMatch FVWM_MASTER_WIDTH 80) Break
++ I None (CurrentPage, !State 1, !State 2, !iconic, AcceptsFocus) Break
++ I PipeRead 'echo SetEnv FVWM_MASTER_WIDTH $(( $[FVWM_MASTER_WIDTH] + 5 ))'
++ I Piperead 'echo SetEnv FVWM_MASTER_PIXWIDTH $(( $[FVWM_MASTER_WIDTH]*$[vp.width]/100 ))'
++ I All (CurrentPage, !iconic, AcceptsFocus, State 1) \
+    Resize frame $[FVWM_MASTER_PIXWIDTH]p keep
++ I All (CurrentPage, !iconic, AcceptsFocus, !State 1, !State 2) \
+    PipeRead 'echo ResizeMove frame \
+    $(( $[vp.width] - $[FVWM_MASTER_PIXWIDTH] ))p keep $[FVWM_MASTER_PIXWIDTH]p keep'
+
+### Decreases width of master area
+DestroyFunc DecreaseMasterWidth
+AddToFunc DecreaseMasterWidth
++ I Test (!EnvMatch FVWM_TILING_$[desk.n]-$[page.nx]-$[page.ny] 1) Break
++ I Test (EnvMatch FVWM_MASTER_WIDTH 20) Break
++ I None (CurrentPage, !State 1, !State 2, !iconic, AcceptsFocus) Break
++ I PipeRead 'echo SetEnv FVWM_MASTER_WIDTH $(( $[FVWM_MASTER_WIDTH] - 5 ))'
++ I Piperead 'echo SetEnv FVWM_MASTER_PIXWIDTH $(( $[FVWM_MASTER_WIDTH]*$[vp.width]/100 ))'
++ I All (CurrentPage, !iconic, AcceptsFocus, State 1) \
+    Resize frame $[FVWM_MASTER_PIXWIDTH]p keep
++ I All (CurrentPage, !iconic, AcceptsFocus, !State 1, !State 2) \
+    PipeRead 'echo ResizeMove frame \
+    $(( $[vp.width] - $[FVWM_MASTER_PIXWIDTH] ))p keep $[FVWM_MASTER_PIXWIDTH]p keep'

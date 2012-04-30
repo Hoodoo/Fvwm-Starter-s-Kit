@@ -29,5 +29,5 @@ Read themes/$[fvwm_theme]/titlebar
 Read themes/$[fvwm_theme]/window_decor
 Read per-application_rules
 Read test
-
+Read tiling-rubycat
 

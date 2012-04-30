@@ -21,13 +21,15 @@ AddToMenu Fvwm_menu
 + "General settings" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/general_settings
 + "Keybindings && Mouse" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/keybindings_and_mouse
 + "Per-applicaton rules" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/per-application_rules
-+ "Configure backer" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/backer 
-+ "" Nop
++ "Configure backer" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/backer
+#+ "" Nop
 + "Regenerate apps menu" Exec exec python2 $[FVWM_USERDIR]/scripts/xdgmenu-updated.py /etc/xdg/menus/applications.menu > $[FVWM_USERDIR]/applications_menu
 + "Main menu" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/main_menu
 + "Preferences menu" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/preferences_menu
 + "Window menu" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/window_menu
-+ "" Nop
+# THAT COMES FROM UROB'S CONFIG!
++ "Refresh Desktop"	    All (CurrentPage, !FvwmButtons, !FvwmPager, !FvwmIconMan, !Iconic) PlaceAgain Anim
+#+ "" Nop
 + "Playground" Exec exec $[fvwm_editor] $[FVWM_USERDIR]/test
 
 DestroyMenu Dotfiles_menu

@@ -1,0 +1,100 @@
+read test
+read test
+read test
+read test
+read test
+read test
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Pick (!CirculateHit) SendToModule FvwmPiazza NextGroup
+Pick (!CirculateHit) SendToModule FvwmPiazza NextGroup
+Pick (!CirculateHit) SendToModule FvwmPiazza PrevGroup
+Pick (!CirculateHit) SendToModule FvwmPiazza PrevGroup
+Pick (!CirculateHit) SendToModule FvwmPiazza PrevGroup
+Pick (!CirculateHit) SendToModule FvwmPiazza PrevGroup
+Pick (!CirculateHit) SendToModule FvwmPiazza NextGroup
+All Desk0 Style !Title
+All Desk 0 Style !Title
+All Desk 0 Style !Title
+All Desk0 Style !Title
+All (Desk0) Style !Title
+Pick Style !Title
+Pick Style !Title
+Pick ThisWindow Style !Title
+Pick ThisWindow Style !Titlebar
+Pick Style !Titlebar
+Pick Style !Titlebar
+Pick Style !Title
+Pick Style !Title
+All (CurrentDesk) !Title
+All (CurrentDesk) Style !Title
+All (CurrentDesk) Style !Title
+All (CurrentDesk) WindowStyle !Title
+All (CurrentDesk) WindowStyle !Title
+All (CurrentDesk) WindowStyle !Title
+All (CurrentDesk) WindowStyle Title
+All (CurrentDesk) WindowStyle !Title
+All (CurrentDesk) WindowStyle !Title Resize keep w+16p S
+All (CurrentDesk) WindowStyle !Title Resize keep w+16p S
+All (CurrentDesk) WindowStyle !Title Resize keep w+16p S
+All (CurrentDesk) WindowStyle Resize keep w+16p S
+All (CurrentDesk) WindowStyle Resize keep w+16p South
+All (CurrentDesk) WindowStyle Resize keep w+16p
+All (CurrentDesk) WindowStyle Resize keep +16p
+All (CurrentDesk) Resize keep w+16p
+All (CurrentDesk) Resize keep w-16p
+read test
+Function MassStrip
+read test
+Function MassStrip
+Function MassUnStrip
+Function MassStrip
+Function MassStrip
+Function MassStrip
+Pick SendToDesk 0 3
+Pick GoToDesk 0 3
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmPiazza
+Module FvwmPiazza
+Module FvwmPiazza
+Module FvwmButtons TopPanel
+Pick (!CirculateHit) SendToModule FvwmPiazza NextGroup
+Pick (!CirculateHit) SendToModule FvwmPiazza NextGroup
+Pick (!CirculateHit) SendToModule FvwmPiazza NextGroup
+Module FvwmButtons TopPanel
+Module FvwmPiazza
+[fvwm][executeModule]: <<ERROR>> No such module 'FvwmPiazza' in ModulePath '/usr/lib/fvwm/2.6.4:'/home/tartan/.fvwm'/modules'
+Module FvwmPiazza
+Module FvwmPiazza
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel
+Module FvwmPiazza
+Module FvwmPiazza
+Module FvwmPiazza
+Module FvwmButtons TopPanel
+Module FvwmPiazza
+Module FvwmPiazza
+Module FvwmButtons TopPanel
+SendToDesk 0 4
+MoveToDesk 0 4
+MoveToDesk 0 4
+Style "tint2" !Border !Decor
+Style "tint2" NoBorder NoDecor
+Style "tint2" !Title, !Borders
+Destroy
+Module FvwmButtons TopPanel
+Module FvwmButtons TopPanel

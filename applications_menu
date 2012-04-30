@@ -2,6 +2,7 @@
 DestroyMenu "Applications"
 AddToMenu "Applications"
 + "Accessories%menu/folder.png%" Popup "Accessories"
++ "Education%menu/folder.png%" Popup "Education"
 + "Games%menu/folder.png%" Popup "Games"
 + "Graphics%menu/folder.png%" Popup "Graphics"
 + "Internet%menu/folder.png%" Popup "Internet"
@@ -10,26 +11,41 @@ AddToMenu "Applications"
 + "Programming%menu/folder.png%" Popup "Development"
 + "Sound & Video%menu/folder.png%" Popup "Multimedia"
 + "System Tools%menu/folder.png%" Popup "System"
++ "Wine%menu/folder.png%" Popup "wine-wine"
 
 DestroyMenu "Accessories"
 AddToMenu "Accessories"
++ "7-Zip FM%menu/p7zip.png%" Exec exec 7zFM
 + "Character Map%menu/accessories-character-map.png%" Exec exec gucharmap
++ "Disk Utility%menu/palimpsest.png%" Exec exec palimpsest
 + "File Manager%menu/system-file-manager.png%" Exec exec exo-open --launch FileManager 
 + "gedit%menu/accessories-text-editor.png%" Exec exec gedit 
 + "GShutdown%menu/gshutdown.png%" Exec exec /usr/bin/gshutdown
 + "PDF Editor%menu/pdfedit.png%" Exec exec pdfedit
 + "Terminal Emulator%menu/utilities-terminal.png%" Exec exec exo-open --launch TerminalEmulator
 + "Xarchiver%menu/xarchiver.png%" Exec exec xarchiver
++ "Zim Desktop Wiki%menu/zim.png%" Exec exec zim
+
+DestroyMenu "Education"
+AddToMenu "Education"
++ "GoldenDict%menu/goldendict.png%" Exec exec goldendict
 
 DestroyMenu "Games"
 AddToMenu "Games"
++ "Battle for Wesnoth%menu/wesnoth-icon.png%" Exec exec wesnoth
++ "Battle for Wesnoth Map Editor%menu/wesnoth_editor-icon.png%" Exec exec wesnoth -e
++ "Block Attack!%menu/blocks.png%" Exec exec blocks
++ "Checkers%menu/checkers.png%" Exec exec checkers
++ "Oolite%menu/oolite-icon.png%" Exec exec oolite
++ "PySol Fan Club Edition%menu/pysol01.png%" Exec exec pysol.py
++ "Sudoku%menu/sudoku.png%" Exec exec sudok
 + "Tux Paint%menu/tuxpaint.png%" Exec exec tuxpaint
 
 DestroyMenu "Graphics"
 AddToMenu "Graphics"
 + "CinePaint%menu/cinepaint.png%" Exec exec cinepaint-remote 
 + "DjView4%menu/djvulibre-djview4.png%" Exec exec djview4 
-+ "GNU Image Manipulation Program%menu/gimp.png%" Exec exec gimp-2.7 
++ "GNU Image Manipulation Program%menu/gimp.png%" Exec exec gimp-2.6 
 + "MagIcons%menu/MagIcons.png%" Exec exec MagIcons
 + "Tux Paint%menu/tuxpaint.png%" Exec exec tuxpaint
 + "Viewnior%menu/viewnior.png%" Exec exec viewnior 
@@ -39,13 +55,16 @@ DestroyMenu "Internet"
 AddToMenu "Internet"
 + "Avahi SSH Server Browser%menu/network-wired.png%" Exec exec /usr/bin/bssh
 + "Avahi VNC Server Browser%menu/network-wired.png%" Exec exec /usr/bin/bvnc
-+ "Claws Mail%menu/claws-mail.png%" Exec exec claws-mail
-+ "Deluge BitTorrent Client%menu/deluge.png%" Exec exec deluge-gtk
-+ "Elinks%menu/.png%" Exec exec elinks 
++ "Deluge%menu/deluge.png%" Exec exec deluge-gtk 
++ "ELinks%menu/html.png%" Exec exec /usr/bin/elinks 
 + "Firefox%menu/firefox.png%" Exec exec firefox 
-+ "Firefox - Safe Mode%menu/firefox.png%" Exec exec firefox -safe-mode 
++ "gFTP%menu/gftp.png%" Exec exec gftp 
++ "GTK2 Samba Client%menu/g2sc.png%" Exec exec g2sc
 + "Links%menu/links_32x32.png%" Exec exec xlinks -g
 + "Mail Reader%menu/internet-mail.png%" Exec exec exo-open --launch MailReader 
++ "Pidgin Internet Messenger%menu/pidgin.png%" Exec exec pidgin
++ "Thunderbird%menu/thunderbird.png%" Exec exec thunderbird 
++ "Transmission%menu/transmission.png%" Exec exec transmission-gtk 
 + "Web Browser%menu/web-browser.png%" Exec exec exo-open --launch WebBrowser 
 + "Wicd%menu/wicd-gtk.png%" Exec exec /usr/bin/wicd-client
 + "XChat IRC%menu/xchat.png%" Exec exec xchat
@@ -55,22 +74,53 @@ AddToMenu "Office"
 + "AbiWord%menu/abiword_48.png%" Exec exec abiword
 + "ePDFViewer%menu/epdfview.png%" Exec exec epdfview 
 + "Gnumeric%menu/gnumeric.png%" Exec exec gnumeric 
++ "GoldenDict%menu/goldendict.png%" Exec exec goldendict
++ "LibreOffice%menu/libreoffice-startcenter.png%" Exec exec libreoffice 
++ "LibreOffice Base%menu/libreoffice-base.png%" Exec exec libreoffice --base 
++ "LibreOffice Calc%menu/libreoffice-calc.png%" Exec exec libreoffice --calc 
++ "LibreOffice Draw%menu/libreoffice-draw.png%" Exec exec libreoffice --draw 
++ "LibreOffice Impress%menu/libreoffice-impress.png%" Exec exec libreoffice --impress 
++ "LibreOffice Math%menu/libreoffice-math.png%" Exec exec libreoffice --math 
++ "LibreOffice Writer%menu/libreoffice-writer.png%" Exec exec libreoffice --writer 
 
 DestroyMenu "Other"
 AddToMenu "Other"
++ "Adobe Flash Player%menu/flash-player-properties.png%" Exec exec flash-player-properties
++ "Customize Look and Feel%menu/preferences-desktop-theme.png%" Exec exec lxappearance
++ "Database access control center%menu/gda-control-center.png%" Exec exec gda-control-center-4.0
++ "dosbox Emulator%menu/dosbox.png%" Exec exec dosbox
++ "File Manager%menu/file-manager.png%" Exec exec thunar-settings
++ "New Murrine Configurator%menu/murrine-configurator.png%" Exec exec /usr/share/nmc/newmurrineconfigurator.py
++ "Panel tint2%menu/tint2conf.png%" Exec exec tint2con
++ "Preferred Applications%menu/preferences-desktop.png%" Exec exec libfm-pref-apps
++ "Preferred Applications%menu/preferences-desktop-default-applications.png%" Exec exec exo-preferred-applications
++ "Privilege granting%menu/gksu.png%" Exec exec gksu-properties
++ "Removable Drives and Media%menu/drive-removable-media.png%" Exec exec thunar-volman-settings
 + "urxvt%menu/.png%" Exec exec urxvt -e vim
 
 DestroyMenu "Development"
 AddToMenu "Development"
++ "BaseX%menu/icon.png%" Exec exec /usr/share/java/basex/bin/basexgui
++ "CMake%menu/CMakeSetup32.png%" Exec exec cmake-gui 
++ "Database browser%menu/gda-browser-4.png%" Exec exec gda-browser-4.0
 + "Devhelp%menu/devhelp.png%" Exec exec devhelp
++ "FLUID%menu/fluid.png%" Exec exec fluid 
 + "Geany%menu/geany.png%" Exec exec geany 
-+ "Glade Interface Designer%menu/glade-3.png%" Exec exec glade-3 
++ "Glade%menu/glade.png%" Exec exec glade 
++ "OpenJDK Monitoring & Management Console%menu/java.png%" Exec exec /usr/bin/jconsole
++ "OpenJDK Policy Tool%menu/java.png%" Exec exec /usr/bin/policytool
 + "Qt Assistant%menu/assistant.png%" Exec exec /usr/bin/assistant
 + "Qt Designer%menu/designer.png%" Exec exec /usr/bin/designer
 + "Qt Linguist%menu/linguist.png%" Exec exec /usr/bin/linguist
 
 DestroyMenu "Multimedia"
 AddToMenu "Multimedia"
++ "Ario%menu/ario.png%" Exec exec ario
++ "DeaDBeeF%menu/deadbeef.png%" Exec exec deadbeef 
++ "Ex Falso%menu/exfalso.png%" Exec exec exfalso
++ "pympd%menu/pympd.png%" Exec exec pympd
++ "QT V4L2 test Utility%menu/qv4l2.png%" Exec exec qv4l2
++ "Quod Libet%menu/quodlibet.png%" Exec exec quodlibet
 + "Sonata%menu/sonata.png%" Exec exec sonata
 + "VLC media player%menu/vlc.png%" Exec exec vlc 
 + "Xfburn%menu/media-cdrom.png%" Exec exec xfburn
@@ -80,7 +130,15 @@ AddToMenu "System"
 + "Avahi Zeroconf Browser%menu/network-wired.png%" Exec exec /usr/bin/avahi-discover
 + "Bulk Rename%menu/Thunar.png%" Exec exec /usr/lib/Thunar/ThunarBulkRename 
 + "Cairo Composite Manager%menu/cairo-compmgr.png%" Exec exec cairo-compmgr
-+ "Disk Utility%menu/palimpsest.png%" Exec exec palimpsest
 + "GParted%menu/gparted.png%" Exec exec gksu /usr/sbin/gparted 
-+ "rxvt-unicode%menu/rxvt-unicode.png%" Exec exec urxvt
++ "Htop%menu/htop.png%" Exec exec htop
++ "rxvt-unicode%menu/terminal.png%" Exec exec urxvt
 + "Thunar File Manager%menu/Thunar.png%" Exec exec Thunar 
+
+DestroyMenu "wine-wine"
+AddToMenu "wine-wine"
++ "Programs%menu/folder.png%" Popup "wine-Programs"
+
+DestroyMenu "wine-Programs"
+AddToMenu "wine-Programs"
++ "Microsoft ActiveSync%menu/BE24_WCESMgrIcon.png%" Exec exec env WINEPREFIX="/home/tartan/.wine" wine C:\\\\windows\\\\command\\\\start.exe /Unix /home/tartan/.wine/dosdevices/c:/users/tartan/Start\\ Menu/Programs/Microsoft\\ ActiveSync.lnk

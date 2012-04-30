@@ -49,7 +49,7 @@ SetEnv fvwm_icons Faenza-Mint
 #  See the _'gray'_ subfolder for some further
 #  details.
 
-SetEnv fvwm_theme termlike
+SetEnv fvwm_theme DYLI
 
 #  fvwm's reserved variable for paths
 #  to all images folders it has to deal
@@ -57,4 +57,7 @@ SetEnv fvwm_theme termlike
 #  folders in your configuration, but it is 
 #  easier to set them here:
 
-ImagePath $[FVWM_USERDIR]/themes/$[fvwm_theme]/decorations/:+:$[FVWM_USERDIR]/icons
+ImagePath $[FVWM_USERDIR]/themes/$[fvwm_theme]/decorations/:+:$[FVWM_USERDIR]/icons:$[FVWM_USERDIR]/panel/
+
+
+ModulePath +:$[FVWM_USERDIR]/modules

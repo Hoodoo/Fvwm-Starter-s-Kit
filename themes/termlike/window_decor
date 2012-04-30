@@ -47,8 +47,8 @@ TitleStyle LeftJustified
 #  has you can set up a nice looking font
 #  in fonts file in this folder
 
-TitleStyle Active Solid #2E3436
-TitleStyle Inactive Solid #2E3436
+TitleStyle Active Solid #2c2c2c
+TitleStyle Inactive Solid #2c2c2c
 
 #  And button styles are written the similar way:
 
@@ -84,16 +84,16 @@ Style * HandleWidth 1
 
 BorderStyle Active Colorset 8 -- flat 
 BorderStyle Inactive Colorset 9 -- flat
-Colorset 8 bg #d5a30e
-Colorset 9 bg #4a5a8d
+Colorset 8 bg #d0d9ad
+Colorset 9 bg #939cb3
 
 #  One more thing to specify here is 
 #  colors in which window titles are
 #  written - again, different for active
 #  and inactive windows: 
 
-Style "*" HilightFore #d5a30e
-Style "*" Color #4a5a8d
+Style "*" HilightFore #d0d9ad
+Style "*" Color #939cb3
 
 #  Get rid of 3d everywhere - if 
 #  it's not done, we will have our

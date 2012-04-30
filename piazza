@@ -1,0 +1,69 @@
+All (FvwmPiazza) Close
+DestroyModuleConfig FvwmPiazza: *
+
+*FvwmPiazza: Struts 0 112 24 0
+*FvwmPiazza: Exclude (Gweled|gnome-mastermind|PipeWalker|feh|pho|Lurk)
+*FvwmPiazza: Layout0 Columns 2 
+*FvwmPiazza: Layout1 Columns 3
+*FvwmPiazza: Layout2 Grid 6,3
+*FvwmPiazza: Layout3 Columns 2
+*FvwmPiazza: Layout4 Columns 3
+*FvwmPiazza: Layout5 Columns 3
+*FvwmPiazza: Layout6 Full
+*FvwmPiazza: Layout7 None
+
+Module FvwmPiazza
+
+Hotkeys
+Key n A 4 SendToModule FvwmPiazza "None"
+aey f A 4 SendToModule FvwmPiazza Full
+Key c A 4 Popup FPMultiColumnMenu
+Key r A 4 Popup FPMultiRowMenu
+Key w A 4 Popup FPMultiWideMenu
+Key t A 4 Popup FPMultiTallMenu
+Key g A 4 Popup FPMultiGridMenu
+Key Up A 4 SendToModule FvwmPiazza Increment 1
+Key Down A 4 SendToModule FvwmPiazza Decrement 1
+
+Key Left A 3S Current (!CirculateHit) SendToModule FvwmPiazza PrevGroup
+Key Right A 3S Current (!CirculateHit) SendToModule FvwmPiazza NextGroup
+
+#------------------------------------------------------------------
+# Functions
+#
+# # Fake multi-keys by defining menus
+DestroyMenu FPMultiColumnMenu
+AddToMenu FPMultiColumnMenu
++ "&2 Columns" SendToModule FvwmPiazza Columns 2
++ "&3 Columns" SendToModule FvwmPiazza Columns 3
++ "&4 Columns" SendToModule FvwmPiazza Columns 4
+
+DestroyMenu FPMultiRowMenu
+AddToMenu FPMultiRowMenu
++ "&2 Rows" SendToModule FvwmPiazza Rows 2
++ "&3 Rows" SendToModule FvwmPiazza Rows 3
++ "&4 Rows" SendToModule FvwmPiazza Rows 4
++ "&Two-Thirds Rows" SendToModule FvwmPiazza Rows 2,66
+
+DestroyMenu FPMultiWideMenu
+AddToMenu FPMultiWideMenu
++ "&3 Wide" SendToModule FvwmPiazza Wide 3
++ "&Bottom Wide 3" SendToModule FvwmPiazza Wide 3,Bottom
++ "&4 Wide" SendToModule FvwmPiazza Wide 4
++ "Bottom Wide 4" SendToModule FvwmPiazza Wide 4,Bottom
++ "&5 Wide" SendToModule FvwmPiazza Wide 5
+
+DestroyMenu FPMultiTallMenu
+AddToMenu FPMultiTallMenu
++ "&3 Tall" SendToModule FvwmPiazza Tall 3
++ "&Right Tall 3" SendToModule FvwmPiazza Tall 3,Right
++ "&4 Tall" SendToModule FvwmPiazza Tall 4
++ "Right Tall 4" SendToModule FvwmPiazza Tall 4,Right
++ "&5 Tall" SendToModule FvwmPiazza Tall 5
+
+DestroyMenu FPMultiGridMenu
+AddToMenu FPMultiGridMenu
++ "&8 Grid" SendToModule FvwmPiazza Grid 8,4
++ "&Gimp Layout" SendToModule FvwmPiazza Columns 3,14:72:14
++ "&Two-Column Gimp Layout" SendToModule FvwmPiazza Columns 2,20
++ "T&all Gimp Layout" SendToModule FvwmPiazza Tall 3,Right,20,50

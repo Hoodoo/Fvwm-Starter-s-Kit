@@ -38,6 +38,7 @@ AddToFunc StartFunction
 + I Module FvwmBacker
 
 + I Module FvwmPerl
++ I Module FvwmPiazza
 
 #  Now back to applications. Whenever you
 #  want an application to start automatically

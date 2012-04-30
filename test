@@ -5,3 +5,106 @@
 #
 #  On the other hand, if it makes any mess,
 #  just purge it.
+
+
+# A panel
+
+# Make it a real panel
+Style "TopPanel" !Title, !Borders, !Handles, Sticky, WindowListSkip, \
+  CirculateSkip, StaysOnBottom, FixedPosition, FixedSize, !Iconifiable
+
+DestroyModuleConfig TopPanel: *
+*TopPanel: Geometry 1920x22+0+0
+*TopPanel: Pixmap panelbg.xpm
+*TopPanel: Rows 1
+*TopPanel: Columns 174
+*TopPanel: Frame 0
+*TopPanel: Font "xft:Terminus:size=10"
+*TopPanel: (2x1, Id "LayoutB", Padding 2, Frame 0, Icon testicon.png)
+*TopPanel: (5x1, Id "COD", Frame 0, Title(Center) "COD"\
+    Action(Mouse1) "Function COD")
+*TopPanel: (5x1, ID "SRF", Frame 0, Title(Center) "SRF" \
+    Action(Mouse1) "Function SRF")
+*TopPanel: (5x1, ID "ADM", Frame 0, Title(Center) "ADM" \
+    Action(Mouse1) "Function ADM")
+*TopPanel: (5x1, ID "PNT", Frame 0, Title(Center) "PNT" \
+    Action(Mouse1) "Function PNT" )
+*TopPanel: (5x1, ID "SPR", Frame 0, Title(Center) "SPR" \
+    Action(Mouse1) "Function SPR")
+*TopPanel: (81x1, Frame 0)
+*TopPanel: (22x1, Id "MPDStatus", Padding 2, Frame 0, Icon audioplayer.png Title(Side) "MPD Stopped", Action 'Exec exec urxvt --title lumusic -e ncmpcpp')
+*TopPanel: (2x1, Padding 2, Frame 0, Icon media-skip-backward.png, Action 'Exec exec mpc prev')
+*TopPanel: (2x1, Id "MPDPP", Padding 2, Frame 0, Icon media-playback-start.png Action 'Exec exec ~/.fvwm/scripts/playpause.pl')
+*TopPanel: (2x1, Padding 2, Frame 0, Icon media-skip-forward.png, Action 'Exec exec mpc next')
+*TopPanel: (6x1, Padding 2, Frame 0, Icon pidgin.png, Title(Side) "Away")
+*TopPanel: (6x1, Id "Emails", Padding 2, Frame 0, Icon mail-notification.png, Title(Side) "00", Action "Function Mailfunc")
+*TopPanel: (13x1, Id "Clock" Frame 0, Title(Center) "Sun Feb 23 18:00")
+*TopPanel: (10x1, Frame 0, Swallow stalonetray
+ 'Exec exec stalonetray --kludges force_icons_size')
+*TopPanel: (2x1, Padding 2, Frame 0, Icon system-shutdown.png, Action 'Exec exec shutdown-dialog.py')
+
+DestroyFunc Mailfunc
+AddToFunc Mailfunc
++ I Exec exec urxvt --title lumail -e mutt
++ I Exec exec echo "0" > /tmp/newmails
+ 
+DestroyFunc COD
+AddToFunc COD
++ I GoToDesk 0 0
++ I SendToModule TopPanel ChangeButton LayoutB Icon Tall.png
++ I SendToModule TopPanel ChangeButton COD Title "*COD*"
++ I SendToModule TopPanel ChangeButton SRF Title "SRF"
++ I SendToModule TopPanel ChangeButton ADM Title "ADM"
++ I SendToModule TopPanel ChangeButton PNT Title "PNT"
++ I SendToModule TopPanel ChangeButton SPR Title "SPR"
+
+DestroyFunc SRF
+AddToFunc SRF
++ I GoToDesk 0 1
++ I SendToModule TopPanel ChangeButton LayoutB Icon Tall.png
++ I SendToModule TopPanel ChangeButton COD Title "COD"
++ I SendToModule TopPanel ChangeButton SRF Title "*SRF*"
++ I SendToModule TopPanel ChangeButton ADM Title "ADM"
++ I SendToModule TopPanel ChangeButton PNT Title "PNT"
++ I SendToModule TopPanel ChangeButton SPR Title "SPR"
+
+DestroyFunc ADM
+AddToFunc ADM
++ I GoToDesk 0 2
++ I SendToModule TopPanel ChangeButton LayoutB Icon Tall.png
++ I SendToModule TopPanel ChangeButton COD Title "COD"
++ I SendToModule TopPanel ChangeButton SRF Title "SRF"
++ I SendToModule TopPanel ChangeButton ADM Title "*ADM*"
++ I SendToModule TopPanel ChangeButton PNT Title "PNT"
++ I SendToModule TopPanel ChangeButton SPR Title "SPR"
+
+DestroyFunc PNT
+AddToFunc PNT
++ I GoToDesk 0 3
++ I SendToModule TopPanel ChangeButton LayoutB Icon Columns.png
++ I SendToModule TopPanel ChangeButton COD Title "COD"
++ I SendToModule TopPanel ChangeButton SRF Title "SRF"
++ I SendToModule TopPanel ChangeButton ADM Title "ADM"
++ I SendToModule TopPanel ChangeButton PNT Title "*PNT*"
++ I SendToModule TopPanel ChangeButton SPR Title "SPR"
+
+DestroyFunc SPR
+AddToFunc SPR
++ I GoToDesk 0 4
++ I SendToModule TopPanel ChangeButton LayoutB Icon Float.png
++ I SendToModule TopPanel ChangeButton COD Title "COD"
++ I SendToModule TopPanel ChangeButton SRF Title "SRF"
++ I SendToModule TopPanel ChangeButton ADM Title "ADM"
++ I SendToModule TopPanel ChangeButton PNT Title "PNT"
++ I SendToModule TopPanel ChangeButton SPR Title "*SPR*"
+
+DestroyFunc MassStrip
+AddToFunc MassStrip
++ I All (CurrentDesk) Resize keep w+16p
++ I All (CurrentDesk) WindowStyle !Title
+
+DestroyFunc MassUnStrip
+AddToFunc MassUnStrip
++ I All (CurrentDesk) Resize keep w-16p
++ I All (CurrentDesk) WindowStyle Title
+

@@ -37,9 +37,9 @@ AddToMenu MainMenu MainMenu title
 
 AddToFunc MakeMainMenu
 + I DestroyMenu recreate MainMenu
-+ I PipeRead 'echo "AddToMenu MainMenu \'$(date +%d.%m) - $(date +%H:%M)  :)\'"' 
++ I PipeRead 'echo "AddToMenu MainMenu \'$(date +%d.%m) - $(date +%H:%M)\'"' 
 + I AddToMenu MainMenu MissingSubmenuFunction FuncFvwmMenuDirectory 
-+ I AddToMenu MainMenu "" Nop
+#+ I AddToMenu MainMenu " " Nop
 + I AddToMenu MainMenu "Text &Editor" Exec exec $[fvwm_editor]
 + I AddToMenu MainMenu "&Terminal" Exec exec $[fvwm_terminal]
 + I AddToMenu MainMenu "&Web Browser" Exec exec $[fvwm_browser]
@@ -47,11 +47,11 @@ AddToFunc MakeMainMenu
 + I AddToMenu MainMenu "&File Manager" Exec exec $[fvwm_filemanager]
 + I AddToMenu MainMenu "Internet Messe&nger" Exec exec $[fvwm_im]
 + I AddToMenu MainMenu "Music &Player" Exec exec $[fvwm_player]
-+ I AddToMenu MainMenu "" Nop
+#+ I AddToMenu MainMenu "  " Nop
 + I AddToMenu MainMenu "&Applications" Popup Applications
 + I AddToMenu MainMenu "P&laces" Popup $[HOME]
 + I AddToMenu MainMenu "Prefere&nces" Popup Preferences
-+ I AddToMenu MainMenu "" Nop
+#+ I AddToMenu MainMenu "  " Nop
 + I AddToMenu MainMenu "Re&start" Restart
 + I AddToMenu MainMenu "E&xit" Exec exec shutdown-dialog.py
 

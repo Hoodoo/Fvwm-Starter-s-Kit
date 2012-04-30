@@ -1,0 +1,5 @@
+# Fonts are written much like in 
+# conky config here:
+
+Style "*" Font "xft:nu:size=8"
+MenuStyle "*" Font "xft:ProggyOptiCyr:size=8"

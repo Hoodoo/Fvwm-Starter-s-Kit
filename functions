@@ -1,4 +1,4 @@
-#  Once you wrote a function, you 
+ #  Once you wrote a function, you 
 #  can invoke it from anywhere in
 #  your fvwm config and bind it
 #  to hotkey or mouse or window
@@ -81,20 +81,20 @@ AddToFunc ReadableWidth
 #  
 #  You can define up to 32 states (0-31)
 #  
-#  In this config State 0 is reserved for
+#  In this config State 31 is reserved for
 #  autoshade function
 
 DestroyFunc ToggleAutoshaded
 AddToFunc ToggleAutoshaded
-+ I State 0
++ I State 31
 
 DestroyFunc AutoShade
 AddToFunc AutoShade
-+ I ThisWindow (State 0) WindowShade True
++ I ThisWindow (State 31) WindowShade True
 
 DestroyFunc AutoUnshade
 AddToFunc AutoUnshade
-+ I ThisWindow (State 0) WindowShade False
++ I ThisWindow (State 31) WindowShade False
 
 #  This module call actually belongs to startup 
 #  function, but I left it here for readability
@@ -217,6 +217,18 @@ DestroyFunc Decorate
 AddToFunc Decorate
 + I WindowStyle Title, Borders, Handles
 
+DestroyFunc UnTitle
+AddToFunc UnTitle
++ I WindowStyle !Title
++ I Resize keep w+14p Direction S
+
+
+DestroyFunc ReTitle
+AddToFunc ReTitle
++ I WindowStyle Title
++ I Resize keep w-14p Direction S
+
+
 #  This one is needed for the file browser
 #  menu to work, credit goes to rstrcogburn@crunchbangforums
 #  !!Important!!
@@ -232,7 +244,7 @@ AddToFunc FuncFvwmMenuDirectory
 -command-t 'Exec exec xdg-open "%d"' \
 -command-f 'Exec exec xdg-open "%f"'"
 
-#  Function for titlebar - "push", focus
+#  Function for titlebar - "push", focusq
 #  and window menu
 #
 #  Warning! I found fvwm's default behaviour
@@ -268,3 +280,25 @@ DestroyFunc AutoShadeAndOnTop
 AddToFunc AutoShadeAndOnTop
 + I ToggleAutoShade
 + I WinOnTop
+
+DestroyFunc HalfLeft
+AddToFunc HalfLeft
++ I WindowStyle !Title
++ I Schedule 50 Resize 681p 766p
++ I Schedule 50 Move 681p 0p
+
+DestroyFunc TopRight
+AddToFunc TopRight
++ I WindowStyle !Title
++ I WindowStyle ResizeHintOverride
++ I Schedule 50 Resize 678p 382p
++ I Schedule 50 Move 0p 0p
+
+DestroyFunc BottRight
+AddToFunc BottRight
++ I WindowStyle !Title
++ I WindowStyle ResizeHintOverride
++ I Schedule 50 Resize 678p 382p
++ I Schedule 50 Move 0p -0p
+
+

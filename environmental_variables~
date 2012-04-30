@@ -1,0 +1,62 @@
+#  This file sets environmental variables
+#
+#  Path to scripts folder, containing all
+#  scripts used in this setup:
+#
+
+SetEnv fvwm_script $[FVWM_USERDIR]/scripts
+
+#  Please set your preferred applications
+#  to list in the desktop menu, launch with
+#  hotkeys etc.
+#  
+#  This would save you some time if you 
+#  decide do use filemanager a instead of
+#  filemanager b - you will only need to edit 
+#  this file once instead of changing 
+#  the file manager command in menu file, 
+#  hotkeys file and whatever files you 
+#  mention it in.
+
+SetEnv fvwm_editor gedit
+SetEnv fvwm_filemanager thunar
+SetEnv fvwm_browser firefox
+SetEnv fvwm_mail claws-mail
+SetEnv fvwm_im pidgin
+SetEnv fvwm_image_viewer viewnior
+SetEnv fvwm_terminal urxvt
+SetEnv fvwm_player sonata
+SetEnv fvwm_runner gmrun
+
+#  You can make use of it if you want to
+#  use some icons in your menu and still
+#  want to change your iconsets and make 
+#  fvwm use the same iconset as your apps.
+#
+#  Not covered in this howto because of my 
+#  poor understanding of gtk and kde iconset
+#  anatomy. 
+
+SetEnv fvwm_icons Faenza-Mint
+
+#  This one is interesting.
+#  The idea is to try to keep the parts of
+#  config responsible for appearance apart 
+#  from these responsible for functionality 
+#  and keep them in subfolders of 'themes'
+#  folder along with .xpm or .png files.
+#  
+#  See the _'gray'_ subfolder for some further
+#  details.
+
+SetEnv fvwm_theme DYLI
+
+#  fvwm's reserved variable for paths
+#  to all images folders it has to deal
+#  with. You can use images from any other
+#  folders in your configuration, but it is 
+#  easier to set them here:
+
+ImagePath $[FVWM_USERDIR]/themes/$[fvwm_theme]/decorations/:+:$[FVWM_USERDIR]/icons:$[FVWM_USERDIR]/panel/
+
+ModulePath /usr/lib/fvwm/2.6.4:$[FVWM_USERDIR]/modules

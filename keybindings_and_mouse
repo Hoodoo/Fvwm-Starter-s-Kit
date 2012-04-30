@@ -45,20 +45,24 @@
 #  hotkeys, couple of ideas come from crunchbanglinux:
 
 Key F4 W M DeleteWin
-Key Tab A M WindowList Root NoGeometry
+# Key Tab A M WindowList Root NoGeometry
+Key Tab A M Next Focus
 Key M A M Module FvwmConsole
 Key F2 A 1 Exec exec $[fvwm_runner]
 Key Space A 4 Menu MainMenu
 Key t W S4 WinOnTop
 Key a W S4 ToggleAutoShaded
-Key d W S4 UnDecorate
-Key d W 4 Decorate
+Key d W S4 UnTitle
+Key d W 4 ReTitle
 Key m W 4 Maximize 100 100
 Key r W 4 ReadableWidth
 Key i W 4 Iconify
 Key F7 W 1 Move
 Key F8 W 1 Resize
-Key D W 4 Decorate
+#Key D W 4 Decorate
+Key Down W 4 BottRight
+Key Up W 4 TopRight
+Key Right W 4 HalfLeft
 
 #  Playing with window title, making it go
 #  to whatever side of the window we want:
@@ -75,13 +79,16 @@ Key Down W S4 WindowStyle TitleAtBottom
 #  to dismiss it.
 #  
 #  One window can belong to several groups.
+#
+#  Groups go starting from 10, because I need 
+#  states 0-3 to cannibalize this: https://github.com/urob/fvwm-tiling/blob/7d4627b22217f279d1b3750456b18f5c45fa5f58/config
 
-Key 1 W C4 AddToGroup 1
-Key 2 W C4 AddToGroup 2 
-Key 3 W C4 AddToGroup 3
-Key 1 A 4 GroupSwitch 1 
-Key 2 A 4 GroupSwitch 2
-Key 3 A 4 GroupSwitch 3
+Key 1 W C4 AddToGroup 10
+Key 2 W C4 AddToGroup 11
+Key 3 W C4 AddToGroup 12
+Key 1 A 4 GroupSwitch 10
+Key 2 A 4 GroupSwitch 11
+Key 3 A 4 GroupSwitch 12
 
 #  Screenshots and screencasts made easy:
 
@@ -108,7 +115,7 @@ Key Print A N FvwmDesktopScreenshot
 Key t A 4 LaunchRaiseSwitch urxvt $[fvwm_terminal] 
 Key f A 4 LaunchRaiseSwitch *File*Manager $[fvwm_filemanager]
 Key e A 4 LaunchRaiseSwitch *gedit $[fvwm_editor]
-Key w A 4 LaunchRaiseSwitch *Namoroka $[fvwm_browser]
+Key w A 4 LaunchRaiseSwitch *Pentadactyl $[fvwm_browser]
 Key p A 4 LaunchRaiseSwitch *Sonata* $[fvwm_player]
 Key g A 4 LaunchRaiseSwitch *GIMP gimp
 
@@ -133,7 +140,7 @@ Key Q A 4 QLikeFvwmConsole  812 360 275 408
 #  make fvwm mimic mainstream window managers 
 #  functionality
 
-Mouse 2 R A Menu MainMenu
+Mouse 3 R A Menu MainMenu
 Mouse 1 R A WindowList Root NoGeometry
 Mouse 1 T A TitleFunction
 
@@ -152,6 +159,6 @@ Mouse 1 T A TitleFunction
 Key XF86AudioRaiseVolume A A Exec amixer set PCM 3+
 Key XF86AudioLowerVolume A A Exec amixer set PCM 3-
 Key XF86AudioMute A A Exec exec amixer set Master toggle
-Key XF86Launch1 A A Exec exec sudo rmmod psmouse
-Key XF86WebCam A A Exec exec sudo modprobe psmouse
+Key XF86Launch1 A A Exec exec ~/.fvwm/scripts/mouse.sh
 Key XF86PowerOff A A exec exec shutdown-dialog.py
+Key XF86AudioPlay A A exec exec deadbeef --play-pause
